@@ -3,22 +3,48 @@
 // Import the module and reference it with the alias vscode in your code below
 // import * as vscode from 'vscode';
 
+var init = false;
+var hasCpp = false;
+
 // let fs = require("fs");
-import { window, commands, ExtensionContext } from 'vscode';
+import { window, commands, ExtensionContext, Disposable } from 'vscode';
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: ExtensionContext) {
+    if (!init) {
+        init = true;
+
+        commands.getCommands().then(function(value) {
+            let result = value.indexOf("C_Cpp.SwitchHeaderSource");
+            if (result >= 0) {
+                hasCpp = true;
+            }
+        });
+    }
 
     console.log('extension is now active!');
 
+    let commandArray = [
+        //name in package.json , name of command to execute
+        ["extension.save", "workbench.action.files.save"],
+        ["extension.toggleTerminal", "workbench.action.terminal.toggleTerminal"],
+        ["extension.toggleActivityBar", "workbench.action.toggleActivityBarVisibility"],
+        ["extension.back", "workbench.action.navigateBack"],
+        ["extension.forward", "workbench.action.navigateForward"],
+        ["extension.toggleWhitespace", "editor.action.toggleRenderWhitespace"]
+    ];
+
+    let disposableCommandsArray: Disposable[] = [];
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with  registerCommand
     // The commandId parameter must match the command field in package.json
 
-    let disposableSave = commands.registerCommand('extension.save', () => {
-        commands.executeCommand('workbench.action.files.save').then(function () {
-            // window.showErrorMessage('File not saved');
-        });
+    commandArray.forEach(command => {
+
+        disposableCommandsArray.push(commands.registerCommand(command[0], () => {
+            commands.executeCommand(command[1]).then(function () {
+            });
+        }));
     });
 
     let disposableBeautify = commands.registerCommand('extension.beautify', () => {
@@ -47,30 +73,23 @@ export function activate(context: ExtensionContext) {
         }
         commands.executeCommand('workbench.action.openPreviousRecentlyUsedEditorInGroup').then(function () {
         });
-        // switch (editor.viewColumn) {
-        //     case 1:
-        //         commands.executeCommand('workbench.action.showEditorsInFirstGroup').then(function () {
-        //         });
-        //         break;
-        //     case 2:
-        //         commands.executeCommand('workbench.action.showEditorsInSecondGroup').then(function () {
-        //         });
-        //         break;
-        //     case 3:
-        //         commands.executeCommand('workbench.action.showEditorsInThirdGroup').then(function () {
-        //         });
-        //         break;
-        //     default:
-        //         commands.executeCommand('workbench.action.showEditorsInGroup').then(function () {
-        //         });
-        //         break;
-        // }
     });
 
+    let disposableSwitch = commands.registerCommand('extension.switch', () => {
+        if (hasCpp) {
+            commands.executeCommand('C_Cpp.SwitchHeaderSource').then(function () { });
+        } else {
+            window.showErrorMessage('C/C++ extension (ms-vscode.cpptools) is not installed!');
+        }
+    });
+    
     // Add to a list of disposables which are disposed when this extension is deactivated.
     context.subscriptions.push(disposableFileList);
-    context.subscriptions.push(disposableSave);
     context.subscriptions.push(disposableBeautify);
+    context.subscriptions.push(disposableSwitch);
+    disposableCommandsArray.forEach(i => {
+        context.subscriptions.push(i);
+    });
 }
 
 // this method is called when your extension is deactivated
