@@ -14,7 +14,7 @@ export function activate(context: ExtensionContext) {
     if (!init) {
         init = true;
 
-        commands.getCommands().then(function(value) {
+        commands.getCommands().then(function (value) {
             let result = value.indexOf("C_Cpp.SwitchHeaderSource");
             if (result >= 0) {
                 hasCpp = true;
@@ -24,14 +24,19 @@ export function activate(context: ExtensionContext) {
 
     console.log('extension is now active!');
 
+    // 1) Add simple commands to array -----------------------------------------------------------
     let commandArray = [
-        //name in package.json , name of command to execute
+        //["name in package.json" , "name of command to execute"]
         ["extension.save", "workbench.action.files.save"],
         ["extension.toggleTerminal", "workbench.action.terminal.toggleTerminal"],
         ["extension.toggleActivityBar", "workbench.action.toggleActivityBarVisibility"],
         ["extension.back", "workbench.action.navigateBack"],
         ["extension.forward", "workbench.action.navigateForward"],
-        ["extension.toggleWhitespace", "editor.action.toggleRenderWhitespace"]
+        ["extension.toggleWhitespace", "editor.action.toggleRenderWhitespace"],
+        // ctrl+P behaviour
+        ["extension.quickOpen", "workbench.action.quickOpen"],
+        // ctrl+H behaviour
+        ["extension.findReplace", "editor.action.startFindReplaceAction"]
     ];
 
     let disposableCommandsArray: Disposable[] = [];
@@ -47,16 +52,15 @@ export function activate(context: ExtensionContext) {
         }));
     });
 
+    // 2) or Add complex commands separately ----------------------------------------------------
+
     let disposableBeautify = commands.registerCommand('extension.beautify', () => {
 
         let editor = window.activeTextEditor;
         if (!editor) {
             return; // No open text editor
         }
-        // if ((fs.statSync(editor.document.uri.fsPath).mode & 146) === 0) {
-        //     // document is in read-only mode
-        //     let t=9;
-        //   }
+
         if (window.state.focused === true && !editor.selection.isEmpty) {
             commands.executeCommand('editor.action.formatSelection').then(function () {
             });
@@ -66,6 +70,7 @@ export function activate(context: ExtensionContext) {
         }
     });
 
+    // see opened files list
     let disposableFileList = commands.registerCommand('extension.filelist', () => {
         let editor = window.activeTextEditor;
         if (!editor || !editor.viewColumn) {
@@ -82,8 +87,8 @@ export function activate(context: ExtensionContext) {
             window.showErrorMessage('C/C++ extension (ms-vscode.cpptools) is not installed!');
         }
     });
-    
-    // Add to a list of disposables which are disposed when this extension is deactivated.
+
+    // Add 1) & 2) to a list of disposables which are disposed when this extension is deactivated.----------------------
     context.subscriptions.push(disposableFileList);
     context.subscriptions.push(disposableBeautify);
     context.subscriptions.push(disposableSwitch);
