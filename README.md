@@ -1,91 +1,105 @@
-# Shortcut Menu Bar VSCode Extension
+![shortcut menu bar](images/1.jpg)
 
-Add buttons to editor menu bar like beautify, show opened files, save, toggle terminal, activity bar, Find replace etc to the editor menu bar in the Visual Studio Code. Make use of that empty menu bar! Increase productivity!
+# Shortcut Menu Bar - VSCode Extension
 
-- - -
+Add 35+ handy buttons like beautify, show opened files, save, toggle terminal, activity bar, Find replace etc to the editor menu bar in VSCode. You can also create your own buttons with custom commands.
 
-## **Screenshot** 📷
+<sub> <i> - Made by [Gourav Goyal](https://gourav.io)</i></sub>
+
+#### [See on VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=jerrygoyal.shortcut-menu-bar)
+
+#### [See on Open-VSX](https://open-vsx.org/extension/jerrygoyal/shortcut-menu-bar)
+
+## 📷 Screenshot
 
 ![shortcut menu bar](images/intro.png)
 
-## **Enable/Disable buttons in extension settings ⚙**
+## ⚙ Enable/Disable buttons from VSCode settings
 
-![shortcut menu bar](images/intro_2.png)
+Go to VSCode settings (`CTRL+,` or `CMD+,`) and search for `shortcut menu bar`. Toggle buttons from there.
 
-- - -
+![shortcut menu bar](images/settings.jpg)
 
-### **Currently Added Buttons ✅**
+## ✅ Currently added buttons
+
 ![shortcut menu bar](images/all_buttons.png)
-* Save active file
-* Navigate back
-* Navigate forward
-* Beautify/format code active file
-* show/hide render whitespace
-* Open files list
-* show/hide terminal
-* show/hide activity bar
-* Quick open (Ctrl+P)
-* Find & replace in active file (Ctrl+H)
-* Switch header source (for .cpp files)
 
-##### Liked the extension? Rate it ⭐⭐⭐⭐⭐
+✔ Save active file  
+✔ Navigate back  
+✔ Navigate forward  
+✔ Beautify/format document or selection  
+✔ Beautify/format document or selection with multiple formatters  
+✔ Undo/Redo buttons  
+✔ Open files list  
+✔ Save all  
+✔ show/hide terminal  
+✔ show/hide render whitespace  
+✔ Quick open (Ctrl+P)  
+✔ show/hide activity bar  
+✔ Find & replace in active file (Ctrl+H)  
+✔ Switch header source (for .cpp files)  
+✔ Toggle line comment  
+✔ Open file, New file  
+✔ Go to definition  
+✔ Cut, Copy, Paste  
+✔ Start Debugging  
+✔ User-defined buttons (0-9)
 
-#### Want more buttons? see FAQ 👇
+## Create buttons with custom commands
 
-- - -
+You can create upto 10 user-defined buttons.  
+Buttons will be shown as numbers as shown in below image.
+
+![User Buttons](images/user-buttons.png)
+
+> Note: To add custom icons for commands, see this [hack](https://github.com/GorvGoyl/Shortcut-Menu-Bar-VSCode-Extension/issues/58#issuecomment-918663851).
+
+You can also trigger a button by using corresponding hotkey combination (Windows: `Ctrl+Alt+0`, `Ctrl+Alt+1`, `Ctrl+Alt+2`, etc, Mac: `Shift+Cmd+0`, `Shift+Cmd+1`, `Shift+Cmd+2`, etc)
+
+1. Got to extension settings (`Ctrl+,` or `Cmd+,`).
+2. Look for `Shortcut Menu Bar: User Button`
+3. Add any [VSCode command](https://code.visualstudio.com/docs/getstarted/keybindings#_default-keyboard-shortcuts) or any other extension command in the input field. Button icon will be visible only when you add a command.
+
+   ![Add Command](images/add-command.jpg)
+
+Optionally, you can also:
+
+- Pass command arguments: add command arguments separated by pipe (e.g. `workbench.action.tasks.runTask|My Task`)
+- Run multiple commands: add comma-separated list of commands and those will get executed sequentially.
+
+---
+
+### ❤ Support continuous development [Buy me a Coffee](https://ko-fi.com/gorvgoyl)
+
+<p align="center">
+  <a href="https://ko-fi.com/gorvgoyl">
+  <img src="https://github.com/GorvGoyl/Notion-Boost-browser-extension/raw/master/src/images/readme/bmc.png" width="200" alt="Buy me a Coffee"/>
+  </a>
+</p>
+
+### 👨‍💻 Follow the maker [@GorvGoyl](https://twitter.com/intent/follow?user_id=325435736) behind this extension
+
+<p align="center">
+  <a href="https://twitter.com/intent/follow?user_id=325435736">
+  <img src="https://img.shields.io/badge/@GorvGoyl-1da1f2?style=for-the-badge&labelColor=1da1f2&color=1da1f2&logo=twitter&logoColor=white&label=Follow" alt="Follow on Twitter"/>
+  </a>
+</p>
+
+### 👍 Liked the extension? Express your love by rating it [⭐⭐⭐⭐⭐](https://marketplace.visualstudio.com/items?itemName=jerrygoyal.shortcut-menu-bar) (clickable stars)
+
+---
 
 ### FAQ 🙋‍
 
-**Why Can't I add my own/custom buttons?**
-Because it's a limitation in VSCode, you can't modify [package.json](https://code.visualstudio.com/api/references/extension-manifest) of extension where the buttons are configured.
+**I found a bug, where to report?**  
+Please create a [new issue on Github](https://github.com/gorvgoyl/Shortcut-Menu-Bar-VSCode-Extension/issues).
 
-**Can you add 'xyz' button for me?**  
-Sure, you can request a button by creating a github issue here https://github.com/JerryGoyal/Shortcut-Menu-Bar-VSCode-Extension/issues
-Please note that It would take some time as I am usually occupied with many things.
-You can also make changes to [repo](https://github.com/JerryGoyal/Shortcut-Menu-Bar-VSCode-Extension/) and send me a PR to speed-up the process.
+**How can I add my own/custom buttons?**  
+Follow above [section](#create-buttons-with-custom-commands).
 
-**Can I contribute to repo to add my button?**  
-Yes, Please. Just go through the [repo](https://github.com/JerryGoyal/Shortcut-Menu-Bar-VSCode-Extension/), it's fairly simple to understand code and add a button. Send me a PR!  
-Few resources: https://code.visualstudio.com/docs/getstarted/keybindings
-https://code.visualstudio.com/docs/extensionAPI/vscode-api
+**Can I contribute new buttons to the extension repo?**  
+Sure. To add buttons see ["Adding new buttons" section of `help.md` file in repo](https://github.com/GorvGoyl/Shortcut-Menu-Bar-VSCode-Extension/blob/master/help.md#adding-new-buttons).  
+Go through the [repo](https://github.com/gorvgoyl/Shortcut-Menu-Bar-VSCode-Extension/), it's fairly simple to understand code and add a button. Send me a PR!
 
 **How can I disable/Enable a button?**  
-By going to extension settings. see above screenshot.
-
-- - -
-
- Report Bugs/Suggest Features: https://github.com/JerryGoyal/Shortcut-Menu-Bar-VSCode-Extension/issues
-
-- - -
-
-## Release Notes
-
-### 1.2
-
-* added quick open/go to file.. Ctrl+P
-* added Find/replace.. Ctrl+H
-* improved readme
-
-### 1.0.1
-
-* added navigate back and forward buttons
-* added switch header and source file button
-* added toggle render whitespace button
-
-### 1.0.0
-
-* user can now hide/show icons in settings
-* added toggle terminal, activity bar
-
-### 0.1.5
-
-* Fixed issue to properly show "opened files"
-
-### 0.1.2
-
-* Initial Release
-
-- - -
-
-<br>
-<br>
+Follow above [section](#-enabledisable-buttons-from-vscode-settings).
